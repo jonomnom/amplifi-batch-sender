@@ -21,6 +21,11 @@ contract BatchSender {
         admin = msg.sender;
     }
 
+    function switchAdmin(address newAdmin) public {
+        require(msg.sender == admin, "BatchSender: forbidden");
+        admin = newAdmin;
+    }
+
     function send(IERC20 _token, address[] memory _accounts, uint256[] memory _amounts) public {
         _send(_token, _accounts, _amounts, 0);
     }
