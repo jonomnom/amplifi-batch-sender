@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.7;
+pragma solidity 0.6.12;
 
 import "./IERC20.sol";
+import "./SafeMath.sol";
 
 contract BatchSender {
+    using SafeMath for uint256;
 
     address public admin;
 
@@ -15,13 +17,8 @@ contract BatchSender {
         uint256[] amounts
     );
 
-    constructor() {
+    constructor() public {
         admin = msg.sender;
-    }
-    
-    function setAdmin(address newAdmin) public {
-        require(msg.sender == newAdmin, "BatchSender: forbidden");
-        admin = newAdmin;
     }
 
     function send(IERC20 _token, address[] memory _accounts, uint256[] memory _amounts) public {
